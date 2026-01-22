@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Competitor Campaign Tracker - Marriott China</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Campaign Tracker</span>
+                </div>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-item active" data-section="dashboard">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#" class="nav-item" data-section="marriott">
+                    <i class="fas fa-hotel"></i>
+                    <span>Marriott</span>
+                </a>
+                <a href="#" class="nav-item" data-section="logs">
+                    <i class="fas fa-history"></i>
+                    <span>Scrape History</span>
+                </a>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <button id="refresh-btn" class="btn btn-primary btn-block">
+                    <i class="fas fa-sync-alt"></i>
+                    <span>Run Scraper</span>
+                </button>
+            </div>
+        </aside>
+        
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="main-header">
+                <div class="header-title">
+                    <h1 id="page-title">Dashboard</h1>
+                    <p id="page-subtitle">Overview of competitor marketing campaigns</p>
+                </div>
+                <div class="header-actions">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="search-input" placeholder="Search campaigns...">
+                    </div>
+                    <div class="last-updated" id="last-updated">
+                        <i class="fas fa-clock"></i>
+                        <span>--</span>
+                    </div>
+                </div>
+            </header>
+            
+            <!-- Dashboard Section -->
+            <section id="dashboard-section" class="content-section active">
+                <!-- Stats Cards -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon total">
+                            <i class="fas fa-bullhorn"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="total-campaigns">0</h3>
+                            <p>Total Campaigns</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon active">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="active-campaigns">0</h3>
+                            <p>Active Campaigns</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon inactive">
+                            <i class="fas fa-archive"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="inactive-campaigns">0</h3>
+                            <p>Inactive</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon new">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="new-campaigns">0</h3>
+                            <p>New This Week</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Category Breakdown -->
+                <div class="section-card">
+                    <div class="card-header">
+                        <h2><i class="fas fa-tags"></i> Campaign Categories</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="category-grid" id="category-stats">
+                            <!-- Category stats will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Recent Campaigns -->
+                <div class="section-card">
+                    <div class="card-header">
+                        <h2><i class="fas fa-clock"></i> Recent Campaigns</h2>
+                        <a href="#" class="view-all" data-section="marriott">View All <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                    <div class="card-body">
+                        <div class="campaigns-list" id="recent-campaigns">
+                            <!-- Recent campaigns will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Marriott Section -->
+            <section id="marriott-section" class="content-section">
+                <!-- Filters -->
+                <div class="filters-bar">
+                    <div class="filter-group">
+                        <label for="category-filter">Category</label>
+                        <select id="category-filter">
+                            <option value="all">All Categories</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="status-filter">Status</label>
+                        <select id="status-filter">
+                            <option value="all">All Status</option>
+                            <option value="active">Active Only</option>
+                            <option value="inactive">Inactive</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <button id="clear-filters" class="btn btn-secondary">
+                            <i class="fas fa-times"></i> Clear Filters
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Campaigns Grid -->
+                <div class="campaigns-grid" id="campaigns-grid">
+                    <!-- Campaign cards will be loaded here -->
+                </div>
+                
+                <!-- Load More -->
+                <div class="load-more-container" id="load-more-container">
+                    <button id="load-more-btn" class="btn btn-secondary">
+                        <i class="fas fa-plus"></i> Load More
+                    </button>
+                </div>
+            </section>
+            
+            <!-- Scrape Logs Section -->
+            <section id="logs-section" class="content-section">
+                <div class="section-card">
+                    <div class="card-header">
+                        <h2><i class="fas fa-list"></i> Scrape History</h2>
+                    </div>
+                    <div class="card-body">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Competitor</th>
+                                    <th>Status</th>
+                                    <th>Found</th>
+                                    <th>New</th>
+                                    <th>Error</th>
+                                </tr>
+                            </thead>
+                            <tbody id="logs-table-body">
+                                <!-- Logs will be loaded here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    
+    <!-- Modal -->
+    <div id="modal-overlay" class="modal-overlay">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 id="modal-title">Campaign Details</h3>
+                <button class="modal-close" id="modal-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body" id="modal-body">
+                <!-- Modal content -->
+            </div>
+        </div>
+    </div>
+    
+    <!-- Toast Notifications -->
+    <div id="toast-container" class="toast-container"></div>
+    
+    <script src="/static/js/app.js"></script>
+</body>
+</html>
