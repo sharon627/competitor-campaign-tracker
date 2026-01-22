@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<!-- saved from url=(0022)http://localhost:5000/ -->
+<html lang="zh-CN"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Competitor Campaign Tracker - Marriott China</title>
+    <link rel="stylesheet" href="./Competitor Campaign Tracker - Marriott China_files/styles.css">
+    <link href="./Competitor Campaign Tracker - Marriott China_files/css2" rel="stylesheet">
+    <link rel="stylesheet" href="./Competitor Campaign Tracker - Marriott China_files/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Campaign Tracker</span>
+                </div>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <a href="http://localhost:5000/#" class="nav-item active" data-section="dashboard">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="http://localhost:5000/#" class="nav-item" data-section="marriott">
+                    <i class="fas fa-hotel"></i>
+                    <span>Marriott</span>
+                </a>
+                <a href="http://localhost:5000/#" class="nav-item" data-section="logs">
+                    <i class="fas fa-history"></i>
+                    <span>Scrape History</span>
+                </a>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <button id="refresh-btn" class="btn btn-primary btn-block">
+                    <i class="fas fa-sync-alt"></i>
+                    <span>Run Scraper</span>
+                </button>
+            </div>
+        </aside>
+        
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="main-header">
+                <div class="header-title">
+                    <h1 id="page-title">Dashboard</h1>
+                    <p id="page-subtitle">Overview of competitor marketing campaigns</p>
+                </div>
+                <div class="header-actions">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="search-input" placeholder="Search campaigns...">
+                    </div>
+                    <div class="last-updated" id="last-updated">
+                        <i class="fas fa-clock"></i>
+                        <span>Updated: 10:12:21 AM</span>
+                    </div>
+                </div>
+            </header>
+            
+            <!-- Dashboard Section -->
+            <section id="dashboard-section" class="content-section active">
+                <!-- Stats Cards -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon total">
+                            <i class="fas fa-bullhorn"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="total-campaigns">8</h3>
+                            <p>Total Campaigns</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon active">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="active-campaigns">8</h3>
+                            <p>Active Campaigns</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon inactive">
+                            <i class="fas fa-archive"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="inactive-campaigns">0</h3>
+                            <p>Inactive</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon new">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="new-campaigns">8</h3>
+                            <p>New This Week</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Category Breakdown -->
+                <div class="section-card">
+                    <div class="card-header">
+                        <h2><i class="fas fa-tags"></i> Campaign Categories</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="category-grid" id="category-stats">
+                <div class="category-item">
+                    <div class="category-count">1</div>
+                    <div class="category-name">商务出行</div>
+                </div>
+            
+                <div class="category-item">
+                    <div class="category-count">1</div>
+                    <div class="category-name">餐饮美食</div>
+                </div>
+            
+                <div class="category-item">
+                    <div class="category-count">1</div>
+                    <div class="category-name">亲子/家庭</div>
+                </div>
+            
+                <div class="category-item">
+                    <div class="category-count">2</div>
+                    <div class="category-name">会员积分</div>
+                </div>
+            
+                <div class="category-item">
+                    <div class="category-count">1</div>
+                    <div class="category-name">水疗养生</div>
+                </div>
+            
+                <div class="category-item">
+                    <div class="category-count">1</div>
+                    <div class="category-name">旅行度假</div>
+                </div>
+            
+                <div class="category-item">
+                    <div class="category-count">1</div>
+                    <div class="category-name">婚礼婚宴</div>
+                </div>
+            </div>
+                    </div>
+                </div>
+                
+                <!-- Recent Campaigns -->
+                <div class="section-card">
+                    <div class="card-header">
+                        <h2><i class="fas fa-clock"></i> Recent Campaigns</h2>
+                        <a href="http://localhost:5000/#" class="view-all" data-section="marriott">View All <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                    <div class="card-body">
+                        <div class="campaigns-list" id="recent-campaigns">
+        <div class="campaign-list-item" data-id="8">
+            <div class="campaign-indicator wedding"></div>
+            <div class="campaign-content">
+                <h4>婚礼场地预订优惠</h4>
+                <p>2024年婚宴预订享专属优惠，包含场地布置、定制菜单及新人住宿礼遇。</p>
+            </div>
+            <div class="campaign-meta">
+                <span class="campaign-badge active">
+                    Active
+                </span>
+                <span class="campaign-date">2026年1月21日</span>
+            </div>
+        </div>
+    
+        <div class="campaign-list-item" data-id="7">
+            <div class="campaign-indicator rewards"></div>
+            <div class="campaign-content">
+                <h4>新会员首住礼遇</h4>
+                <p>新注册万豪旅享家会员首次入住即获500积分奖励，更有机会升级房型。</p>
+            </div>
+            <div class="campaign-meta">
+                <span class="campaign-badge active">
+                    Active
+                </span>
+                <span class="campaign-date">2026年1月21日</span>
+            </div>
+        </div>
+    
+        <div class="campaign-list-item" data-id="6">
+            <div class="campaign-indicator travel"></div>
+            <div class="campaign-content">
+                <h4>周末度假特惠</h4>
+                <p>周五至周日入住指定度假酒店，享房价7折优惠，含双人早餐及度假村活动体验。</p>
+            </div>
+            <div class="campaign-meta">
+                <span class="campaign-badge active">
+                    Active
+                </span>
+                <span class="campaign-date">2026年1月21日</span>
+            </div>
+        </div>
+    
+        <div class="campaign-list-item" data-id="5">
+            <div class="campaign-indicator spa"></div>
+            <div class="campaign-content">
+                <h4>水疗养生套餐</h4>
+                <p>尊享90分钟身心放松体验，包含特色按摩及水疗护理。预订住宿套餐可享专属折扣。</p>
+            </div>
+            <div class="campaign-meta">
+                <span class="campaign-badge active">
+                    Active
+                </span>
+                <span class="campaign-date">2026年1月21日</span>
+            </div>
+        </div>
+    
+        <div class="campaign-list-item" data-id="4">
+            <div class="campaign-indicator business"></div>
+            <div class="campaign-content">
+                <h4>商务差旅尊享计划</h4>
+                <p>为商务旅客定制的专属礼遇，包含延迟退房、行政酒廊使用权及专属商务服务。</p>
+            </div>
+            <div class="campaign-meta">
+                <span class="campaign-badge active">
+                    Active
+                </span>
+                <span class="campaign-date">2026年1月21日</span>
+            </div>
+        </div>
+    </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Marriott Section -->
+            <section id="marriott-section" class="content-section">
+                <!-- Filters -->
+                <div class="filters-bar">
+                    <div class="filter-group">
+                        <label for="category-filter">Category</label>
+                        <select id="category-filter"><option value="all">All Categories</option>
+            <option value="business">商务出行</option>
+        
+            <option value="dining">餐饮美食</option>
+        
+            <option value="family">亲子/家庭</option>
+        
+            <option value="rewards">会员积分</option>
+        
+            <option value="spa">水疗养生</option>
+        
+            <option value="travel">旅行度假</option>
+        
+            <option value="wedding">婚礼婚宴</option>
+        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="status-filter">Status</label>
+                        <select id="status-filter">
+                            <option value="all">All Status</option>
+                            <option value="active">Active Only</option>
+                            <option value="inactive">Inactive</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <button id="clear-filters" class="btn btn-secondary">
+                            <i class="fas fa-times"></i> Clear Filters
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Campaigns Grid -->
+                <div class="campaigns-grid" id="campaigns-grid">
+            <div class="campaign-card wedding" data-id="8">
+                <div class="update-indicator recent" title="Updated today"></div>
+                <div class="campaign-card-header">
+                    <h3>婚礼场地预订优惠</h3>
+                    <div class="campaign-card-badges">
+                        <span class="badge category">婚礼婚宴</span>
+                        <span class="badge status-active">
+                            Active
+                        </span>
+                        <span class="badge recent">New</span>
+                    </div>
+                </div>
+                <div class="campaign-card-body">
+                    <p>2024年婚宴预订享专属优惠，包含场地布置、定制菜单及新人住宿礼遇。</p>
+                </div>
+                <div class="campaign-card-footer">
+                    <span class="date">
+                        <i class="fas fa-calendar-alt"></i>
+                        Discovered: 2026年1月20日
+                    </span>
+                    <a href="https://www.marriott.com.cn/meetings/weddings.mi" target="_blank" class="link" onclick="event.stopPropagation();">
+                        <i class="fas fa-external-link-alt"></i> Source
+                    </a>
+                </div>
+            </div>
+        
+            <div class="campaign-card rewards" data-id="7">
+                <div class="update-indicator recent" title="Updated today"></div>
+                <div class="campaign-card-header">
+                    <h3>新会员首住礼遇</h3>
+                    <div class="campaign-card-badges">
+                        <span class="badge category">会员积分</span>
+                        <span class="badge status-active">
+                            Active
+                        </span>
+                        <span class="badge recent">New</span>
+                    </div>
+                </div>
+                <div class="campaign-card-body">
+                    <p>新注册万豪旅享家会员首次入住即获500积分奖励，更有机会升级房型。</p>
+                </div>
+                <div class="campaign-card-footer">
+                    <span class="date">
+                        <i class="fas fa-calendar-alt"></i>
+                        Discovered: 2026年1月20日
+                    </span>
+                    <a href="https://www.marriott.com.cn/marriott-bonvoy/new-member.mi" target="_blank" class="link" onclick="event.stopPropagation();">
+                        <i class="fas fa-external-link-alt"></i> Source
+                    </a>
+                </div>
+            </div>
+        
+            <div class="campaign-card travel" data-id="6">
+                <div class="update-indicator recent" title="Updated today"></div>
+                <div class="campaign-card-header">
+                    <h3>周末度假特惠</h3>
+                    <div class="campaign-card-badges">
+                        <span class="badge category">旅行度假</span>
+                        <span class="badge status-active">
+                            Active
+                        </span>
+                        <span class="badge recent">New</span>
+                    </div>
+                </div>
+                <div class="campaign-card-body">
+                    <p>周五至周日入住指定度假酒店，享房价7折优惠，含双人早餐及度假村活动体验。</p>
+                </div>
+                <div class="campaign-card-footer">
+                    <span class="date">
+                        <i class="fas fa-calendar-alt"></i>
+                        Discovered: 2026年1月20日
+                    </span>
+                    <a href="https://www.marriott.com.cn/specials/weekend-getaway.mi" target="_blank" class="link" onclick="event.stopPropagation();">
+                        <i class="fas fa-external-link-alt"></i> Source
+                    </a>
+                </div>
+            </div>
+        
+            <div class="campaign-card spa" data-id="5">
+                <div class="update-indicator recent" title="Updated today"></div>
+                <div class="campaign-card-header">
+                    <h3>水疗养生套餐</h3>
+                    <div class="campaign-card-badges">
+                        <span class="badge category">水疗养生</span>
+                        <span class="badge status-active">
+                            Active
+                        </span>
+                        <span class="badge recent">New</span>
+                    </div>
+                </div>
+                <div class="campaign-card-body">
+                    <p>尊享90分钟身心放松体验，包含特色按摩及水疗护理。预订住宿套餐可享专属折扣。</p>
+                </div>
+                <div class="campaign-card-footer">
+                    <span class="date">
+                        <i class="fas fa-calendar-alt"></i>
+                        Discovered: 2026年1月20日
+                    </span>
+                    <a href="https://www.marriott.com.cn/specials/spa-wellness.mi" target="_blank" class="link" onclick="event.stopPropagation();">
+                        <i class="fas fa-external-link-alt"></i> Source
+                    </a>
+                </div>
+            </div>
+        
+            <div class="campaign-card business" data-id="4">
+                <div class="update-indicator recent" title="Updated today"></div>
+                <div class="campaign-card-header">
+                    <h3>商务差旅尊享计划</h3>
+                    <div class="campaign-card-badges">
+                        <span class="badge category">商务出行</span>
+                        <span class="badge status-active">
+                            Active
+                        </span>
+                        <span class="badge recent">New</span>
+                    </div>
+                </div>
+                <div class="campaign-card-body">
+                    <p>为商务旅客定制的专属礼遇，包含延迟退房、行政酒廊使用权及专属商务服务。</p>
+                </div>
+                <div class="campaign-card-footer">
+                    <span class="date">
+                        <i class="fas fa-calendar-alt"></i>
+                        Discovered: 2026年1月20日
+                    </span>
+                    <a href="https://www.marriott.com.cn/specials/business-travel.mi" target="_blank" class="link" onclick="event.stopPropagation();">
+                        <i class="fas fa-external-link-alt"></i> Source
+                    </a>
+                </div>
+            </div>
+        
+            <div class="campaign-card dining" data-id="3">
+                <div class="update-indicator recent" title="Updated today"></div>
+                <div class="campaign-card-header">
+                    <h3>春季美食节特别优惠</h3>
+                    <div class="campaign-card-badges">
+                        <span class="badge category">餐饮美食</span>
+                        <span class="badge status-active">
+                            Active
+                        </span>
+                        <span class="badge recent">New</span>
+                    </div>
+                </div>
+                <div class="campaign-card-body">
+                    <p>品尝春季限定美食，指定餐厅消费满额享8折优惠。包含多款时令菜品和精选套餐。</p>
+                </div>
+                <div class="campaign-card-footer">
+                    <span class="date">
+                        <i class="fas fa-calendar-alt"></i>
+                        Discovered: 2026年1月20日
+                    </span>
+                    <a href="https://www.marriott.com.cn/dining/spring-food-festival.mi" target="_blank" class="link" onclick="event.stopPropagation();">
+                        <i class="fas fa-external-link-alt"></i> Source
+                    </a>
+                </div>
+            </div>
+        
+            <div class="campaign-card rewards" data-id="2">
+                <div class="update-indicator recent" title="Updated today"></div>
+                <div class="campaign-card-header">
+                    <h3>万豪旅享家会员积分加倍</h3>
+                    <div class="campaign-card-badges">
+                        <span class="badge category">会员积分</span>
+                        <span class="badge status-active">
+                            Active
+                        </span>
+                        <span class="badge recent">New</span>
+                    </div>
+                </div>
+                <div class="campaign-card-body">
+                    <p>限时活动：预订指定酒店可获得双倍积分奖励。会员专享，积分可兑换免费住宿及多种礼遇。</p>
+                </div>
+                <div class="campaign-card-footer">
+                    <span class="date">
+                        <i class="fas fa-calendar-alt"></i>
+                        Discovered: 2026年1月20日
+                    </span>
+                    <a href="https://www.marriott.com.cn/marriott-bonvoy/double-points.mi" target="_blank" class="link" onclick="event.stopPropagation();">
+                        <i class="fas fa-external-link-alt"></i> Source
+                    </a>
+                </div>
+            </div>
+        
+            <div class="campaign-card family" data-id="1">
+                <div class="update-indicator recent" title="Updated today"></div>
+                <div class="campaign-card-header">
+                    <h3>万豪旅享家亲子主题房</h3>
+                    <div class="campaign-card-badges">
+                        <span class="badge category">亲子/家庭</span>
+                        <span class="badge status-active">
+                            Active
+                        </span>
+                        <span class="badge recent">New</span>
+                    </div>
+                </div>
+                <div class="campaign-card-body">
+                    <p>为家庭旅客打造的专属主题房体验，包含儿童欢迎礼品、亲子活动及家庭套餐优惠。入住即享专属儿童用品和游乐设施。</p>
+                </div>
+                <div class="campaign-card-footer">
+                    <span class="date">
+                        <i class="fas fa-calendar-alt"></i>
+                        Discovered: 2026年1月20日
+                    </span>
+                    <a href="https://www.marriott.com.cn/specials/family-theme-room.mi" target="_blank" class="link" onclick="event.stopPropagation();">
+                        <i class="fas fa-external-link-alt"></i> Source
+                    </a>
+                </div>
+            </div>
+        </div>
+                
+                <!-- Load More -->
+                <div class="load-more-container" id="load-more-container" style="display: none;">
+                    <button id="load-more-btn" class="btn btn-secondary">
+                        <i class="fas fa-plus"></i> Load More
+                    </button>
+                </div>
+            </section>
+            
+            <!-- Scrape Logs Section -->
+            <section id="logs-section" class="content-section">
+                <div class="section-card">
+                    <div class="card-header">
+                        <h2><i class="fas fa-list"></i> Scrape History</h2>
+                    </div>
+                    <div class="card-body">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Competitor</th>
+                                    <th>Status</th>
+                                    <th>Found</th>
+                                    <th>New</th>
+                                    <th>Error</th>
+                                </tr>
+                            </thead>
+                            <tbody id="logs-table-body">
+                                <!-- Logs will be loaded here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    
+    <!-- Modal -->
+    <div id="modal-overlay" class="modal-overlay">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 id="modal-title">Campaign Details</h3>
+                <button class="modal-close" id="modal-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body" id="modal-body">
+                <!-- Modal content -->
+            </div>
+        </div>
+    </div>
+    
+    <!-- Toast Notifications -->
+    <div id="toast-container" class="toast-container"></div>
+    
+    <script src="./Competitor Campaign Tracker - Marriott China_files/app.js.download"></script>
+
+</body></html>
